@@ -3,9 +3,8 @@ package br.com.fiap.msproduto.controller;
 import br.com.fiap.msproduto.model.Produto;
 import br.com.fiap.msproduto.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +25,25 @@ public class ProdutoController {
     @GetMapping
     public List<Produto> listarProdutos() {
         return produtoService.listarProduto();
+    }
+
+    @PostMapping
+    public Produto cadastrarProduto(@RequestBody Produto produto) {
+        return produtoService.cadastrarProduto(produto);
+    }
+
+    @GetMapping("/{produtoId}")
+    public ResponseEntity<?> listarUmProduto(@PathVariable Integer produtoId) {
+        return produtoService.listarUmProduto(produtoId);
+    }
+
+    @PutMapping("/{produtoId}")
+    public Produto atualizarProduto(@PathVariable Integer produtoId, @RequestBody Produto novoProduto) {
+        return produtoService.atualizarProduto(produtoId, novoProduto);
+    }
+
+    @DeleteMapping("/{produtoId}")
+    public void excluirProduto(@PathVariable Integer produtoId) {
+        produtoService.excluirProduto(produtoId);
     }
 }
